@@ -6,6 +6,20 @@ import os
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+try:
+    import locale
+    from locale import gettext as _
+
+    # Translation Constants:
+    APPNAME = "example"
+    TRANSLATIONS_PATH = "/usr/share/locale"
+    locale.bindtextdomain(APPNAME, TRANSLATIONS_PATH)
+    locale.textdomain(APPNAME)
+except:
+    # locale load fallback
+    def _(msg):
+        return msg
+
 
 class MainWindow:
     def __init__(self, application):
@@ -19,10 +33,15 @@ class MainWindow:
         self.builder.add_from_file(glade_file)
         self.builder.connect_signals(self)
 
-        # define components
-        self.window = self.builder.get_object("ui_window_main")
-
-        self.window.set_application(application)
+        self.ui_window_main.set_application(application)
 
         # show main window
-        self.window.show()
+        self.ui_window_main.show()
+
+        # do some stuff
+        print(_("Hello World"))
+
+    def __getattr__(self, name):
+        # return object if exists
+        if self.builder.get_object(name):
+            return self.builder.get_object(name)

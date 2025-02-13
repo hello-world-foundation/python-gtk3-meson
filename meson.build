@@ -4,6 +4,8 @@ project(
     license: ['GplV3']
 )
 
+subdir('po')
+
 prefix = get_option('prefix')
 appdir = prefix / 'share'
 
