@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Example
+Comment=Example
+Categories=System;X-Pardus-Apps;
+Keywords=keyword;keyword;keyword;
+
+Exec=example
+Icon=tr.org.example.application
+Terminal=false
+Type=Application
+StartupNotify=true
+X-GNOME-UsesNotifications=true

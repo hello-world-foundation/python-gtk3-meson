@@ -1,26 +1,27 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
+import sys
 import gi
+
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import GLib, Gio, Gtk
 
 from MainWindow import MainWindow
 
-class ExampleApplication(Gtk.Application):
+class Application(Gtk.Application):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, application_id="org.example.application",
+                         flags=Gio.ApplicationFlags.FLAGS_NONE, **kwargs
+        )
+        self.window = None
+        GLib.set_prgname("org.example.application")
 
-    def __init__(self):
-        super().__init__(application_id="com.example.application")
-        self.connect('activate', self.on_activate)
-        self.main_window = None
-
-    def on_activate(self, app):
-        if not self.main_window:
-            self.main_window = MainWindow()
-            self.main_window.set_application(self)
-            self.main_window.present()
+    def do_activate(self):
+        if not self.window:
+            self.window = MainWindow(self)
+        else:
+            self.window.present()
 
 
-if __name__ == '__main__':
-    app = ExampleApplication()
-    app.run(None)
-
+app = Application()
+app.run(sys.argv)

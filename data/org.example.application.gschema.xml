@@ -1,0 +1,8 @@
+<schemalist>
+  <schema id="org.example.application" path="/org/example/application/">
+    <key type="s" name="example">
+      <default>"Hello World"</default>
+      <summary>Example</summary>
+    </key>
+ </schema>
+</schemalist>
